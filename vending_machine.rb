@@ -24,7 +24,7 @@ class VendingMachine
 
   # 購入操作
   def purchase(drink_name, suica)
-    if can_purchase?(drink_name, suica)
+    raise '購入できません' unless can_purchase?(drink_name, suica)
       # ジュースの在庫を減らす
       drink = @drink_stock.find { |d| d.name == drink_name }
       @drink_stock.delete(drink)
@@ -34,9 +34,6 @@ class VendingMachine
 
       # Suicaのチャージ残高を減らす
       suica.deduct(drink.price)
-    else
-      raise '購入できません'
-    end
   end
 
   # 購入可能なドリンクのリストを取得
